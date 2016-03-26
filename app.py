@@ -12,26 +12,20 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/home')
 def home_page():
-    return 'ET phone home. This is the home page, you dingus' 
-    #return render_template()
-
-#profile/owner page
-@app.route('/profile')
-def profile():
-    return 'Profile; placeholder;'
-    #return render_template()
+    # return 'ET phone home. This is the home page, you dingus' 
+    return render_template('index.html')
 
 #profile/owner detail page
-@app.route('/profile/<int:user_id>')
+@app.route('/owner/<user_id>')
 def profile_detail(user_id):
-    return 'Profile ' + str(user_id)
-    #return render_templat()
+    # return 'Profile ' + str(user_id)
+    return render_template('owner.html',fbid = user_id)
 
 #objects page
 @app.route('/objects')
 def objects():
     return 'Objects; placeholder;'
-    #return render_templat()
+    #return render_template()
 
 #city detail page
 #@app.route('/cities/<int:city_id>')

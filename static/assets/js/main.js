@@ -16,7 +16,7 @@ function fblogin() {
             pref.set({
                 "name":authData.facebook.displayName
             })
-            window.location.href = 'owner.html'
+            window.location.href = '/owner/' + authData.facebook.id;
         }
     });
 }
@@ -45,25 +45,25 @@ function fblogout() {
     window.location.href = 'index.html'
 }
 
-function additem() {
-    ref.authWithOAuthPopup("facebook", function (error, authData) {
-        if (error) {
-            console.log("Login Failed!", error);
+// function additem() {
+//     ref.authWithOAuthPopup("facebook", function (error, authData) {
+//         if (error) {
+//             console.log("Login Failed!", error);
 
-        } else {
-            var npath = "items/";
-            var item_id = document.getElementById('item_id_form').value;
-            //console.log("ID: ", item_id);
-            //console.log("data: ", data);
+//         } else {
+//             var npath = "items/";
+//             var item_id = document.getElementById('item_id_form').value;
+//             //console.log("ID: ", item_id);
+//             //console.log("data: ", data);
 
-            var pref = ref.child(npath+item_id);
-            pref.set({
-                "name": document.getElementById('item_name_form').value,
-                "owner_id": authData.facebook.id
-            });
-        }
-    });
-}
+//             var pref = ref.child(npath+item_id);
+//             pref.set({
+//                 "name": document.getElementById('item_name_form').value,
+//                 "owner_id": authData.facebook.id
+//             });
+//         }
+//     });
+// }
 
 
 //slow scroll
