@@ -8,23 +8,36 @@ from flask import Flask, render_template, request, redirect, url_for
 app = Flask(__name__)
 #manager = Manager(app)
 
-
 #Splash/Home page
 @app.route('/')
 @app.route('/home')
 def home_page():
-    return 'This is the home page' 
+    return 'ET phone home. This is the home page, you dingus' 
+    #return render_template()
+
+#profile/owner page
+@app.route('/profile')
+def profile():
+    return 'Profile; placeholder;'
+    #return render_template()
+
+#profile/owner detail page
+@app.route('/profile/<int:user_id>')
+def profile_detail(user_id):
+    return 'Profile ' + str(user_id)
+    #return render_templat()
+
+#objects page
+@app.route('/objects')
+def objects():
+    return 'Objects; placeholder;'
+    #return render_templat()
 
 #city detail page
-@app.route('/cities')
-def cities():
-    return 'This is a test for cities' 
-
-#city detail page
-@app.route('/cities/<int:city_id>')
-def city_detail(city_id):
-    city_pages = ['LA', 'barcelona', 'prague']
-    return render_template(city_pages[city_id] + '.html')
+#@app.route('/cities/<int:city_id>')
+#def city_detail(city_id):
+#    city_pages = ['LA', 'barcelona', 'prague']
+#    return render_template(city_pages[city_id] + '.html')
 
 if __name__ == '__main__':
     #manager.run()
