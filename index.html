@@ -28,6 +28,7 @@
 
     <!--Firebase-->
     <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
+    <script src="js/main.js"></script>
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -388,20 +389,7 @@
     });
 </script>
 
-<script>
-    function fblogin() {
-        var ref = new Firebase("https://keypin.firebaseio.com");
-        ref.authWithOAuthPopup("facebook", function (error, authData) {
-            if (error) {
-                console.log("Login Failed!", error);
 
-            } else {
-                console.log("Authenticated successfully with payload:", authData);
-                window.location.href = 'owner.html'
-            }
-        });
-    }
-</script>
 </body>
 
 </html>
