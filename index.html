@@ -25,7 +25,7 @@
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic"
           rel="stylesheet" type="text/css">
-<!--Firebase-->
+    <!--Firebase-->
     <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
 
 
@@ -83,9 +83,6 @@
                 <!--<button type="button" class="pure-button pure-button-primary" onclick="window.location.href='#about'">About</button>-->
                 <a href="#about" class="btn btn-lg btn-dark">About</a>
                 <button type="button" class="btn btn-lg btn-dark" onclick="fblogin()">FACEBOOK</button>
-
-
-
             </div>
         </form>
     </div>
@@ -396,11 +393,11 @@
         ref.authWithOAuthPopup("facebook", function (error, authData) {
             if (error) {
                 console.log("Login Failed!", error);
-                window.location.href='owner.html'
+                window.location.href = 'owner.html'
 
             } else {
                 console.log("Authenticated successfully with payload:", authData);
-                window.location.href='owner.html'
+                window.location.href = 'owner.html'
             }
         });
     }
