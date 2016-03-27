@@ -52,9 +52,12 @@
 
 </head>
 
-<div>
-    <button type="button" class="btn btn-lg btn-dark home-button" onclick="fblogout()">KeyPin</button>
-</div>
+
+<img class="img-circle" src = "https://graph.facebook.com/{{fbid}}/picture?type=normal"/>
+
+<a href = "/home">
+    <button type="button" class="btn btn-lg btn-dark home-button">KeyPin</button>
+</a>
 
 <script>
     $(document).ready(function () {
@@ -147,8 +150,6 @@
     </div>
 </div>
 
-<!-- Modal Trigger -->
-<a class="waves-effect waves-light btn modal-trigger" data-toggle="modal" data-target="#myModal">Modal</a>
 
 <!-- Modal Structure -->
 <div id="modal1" class="modal">

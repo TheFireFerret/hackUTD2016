@@ -42,8 +42,9 @@ function fbloginNoRedirect() {
 }
 
 function fblogout() {
-    ref.unauth();
-    window.location.href = 'index.html'
+    // window.location.href = '/';
+    // ref.unauth();
+    console.log("button was pressed");
 }
 
 
