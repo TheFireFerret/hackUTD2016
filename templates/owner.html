@@ -66,12 +66,10 @@
     }
 
     function readitems(){
-
         ref.child("items").orderByChild("owner_id").equalTo("{{fbid}}").once("value", function(snapshot){
             snapshot.forEach(function(itemSnap){
 //                console.log(itemSnap.val().name)
                 $("tbody").append("<tr><td>"+itemSnap.val().name+"</td></tr>");
-
             })
         })
     }

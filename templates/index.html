@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 
 <head>
 
@@ -18,15 +18,19 @@
     <link href="../static/assets/css/stylish-portfolio.css" rel="stylesheet">
     <link rel="stylesheet" href="../static/assets/css/main.css">
 
-    <!-- PureCSS -->
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-
     <!-- jQuery -->
     <script src="../static/assets/js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="../static/assets/js/bootstrap.min.js"></script>
 
+    <!-- PureCSS -->
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+
+    <!-- Custom Fonts -->
+    <link href="../static/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic"
+          rel="stylesheet" type="text/css">
 
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="../static/assets/css/materialize.min.css">
@@ -34,15 +38,8 @@
     <!-- Compiled and minified JavaScript -->
     <script src="../static/assets/js/materialize.min.js"></script>
 
-
-
-    <!-- Custom Fonts -->
-    <link href="../static/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic"
-          rel="stylesheet" type="text/css">
-
     <!--Firebase-->
-    <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
+    <script src="../static/assets/js/firebase.js"></script>
     <script src="../static/assets/js/main.js"></script>
 
 
@@ -56,51 +53,56 @@
 </head>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('select').material_select();
     });
+</script>
+
+<script>
+    function checkItem() {
+        var id = document.getElementById("id_entry").value;
+
+        ref.child("items/" + id).once("value", function (snapshot) {
+            if (snapshot.exists()){
+                alert("I EXIST");
+            } else {
+                alert("id does not exist.");
+            }
+        });
+
+    }
+
 </script>
 <body>
 
 <!-- Header -->
 <header id="top" class="header">
-    <!--<div class="text-vertical-center">-->
-        <!--<h1>KeyPin</h1>-->
-        <!--<h3>Keeping your items safe</h3>-->
-        <br>
-        <!--&lt;!&ndash;<a href="#about" class="btn btn-dark btn-lg">Find Out More</a>&ndash;&gt;-->
-        <!--<form class="pure-form">-->
-            <!--<div class="centered">-->
-                <!--<input type="text" placeholder="id number" class="id-input">-->
-            <!--</div>-->
-            <!--<div><br></div>-->
-            <!--<div>-->
-                <!--<button type="submit" class="btn">Submit</button>-->
-                <!--<a href="#about" class="btn">About</a>-->
-                <!--<button type="button" onclick="fblogin()">FACEBOOK</button>-->
-            <!--</div>-->
-        <!--</form>-->
-    </div>
-
     <div class="text-vertical-center">
         <h1>KeyPin</h1>
-        <h3>Keeping your items safe</h3>
-        <form class="col s12">
-            <div class="row valign">
-                <div class="input-field col s6">
-                    <input id="icon_prefix" type="text" class="validate">
-                    <label for="icon_prefix">
-                        <span class="cyan-text">First Name</span></label>
+        <h3>KeyPin' your items safe</h3>
+        <div class="col s12" id="form">
+            <div class="row center-align">
+                <div class="centered">
+                    <div class="input-field col s6 offset-s3">
+                        <input id="id_entry" type="text" class="validate" onkeydown = "if (event.keyCode == 13)
+                        checkItem()">
+                        <label for="id_entry"><span class="black-text">id number</span></label>
+                    </div>
                 </div>
             </div>
-        </form>
+            <div>
+                <button type="button" id="submit_button" class="btn" onclick="checkItem()">Submit</button>
+                <a href="#about" class="btn">About</a>
+            </div>
+            <div><br></div>
+            <div>
+                <button type="button" class="btn blue" onclick="fblogin()">Facebook Login</button>
+            </div>
+        </div>
     </div>
 
 
 </header>
-
-
-
 
 
 <!-- About -->
@@ -109,10 +111,10 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <h2>KeyPin is the perfect tool to recover your lost items</h2>
-                <p class="lead">Ever lost an item and wanted to be contacted without 
-                fearing about putting too much information on the item?</p>
-                <p class="lead">KeyPin serves as the middle man, making sure both sides can message 
-                each other while maintaining anonymity.</p>
+                <p class="lead">Ever lost an item and wanted to be contacted without
+                    fearing about putting too much information on the item?</p>
+                <p class="lead">KeyPin serves as the middle man, making sure both sides can message
+                    each other while maintaining anonymity.</p>
             </div>
         </div>
         <!-- /.row -->
@@ -138,8 +140,8 @@
                             <h4>
                                 <strong>1) Find the Label</strong>
                             </h4>
-                            <p>If the item is registered with KeyPin, locate the 
-                            key, and go to keypin.me to type in the id number. </p>
+                            <p>If the item is registered with KeyPin, locate the
+                                key, and go to keypin.me to type in the id number. </p>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
@@ -151,8 +153,8 @@
                             <h4>
                                 <strong>2) Enter the Code</strong>
                             </h4>
-                            <p>Enter the key onto this website to find the 
-                            anonymous owner of the item. </p>
+                            <p>Enter the key onto this website to find the
+                                anonymous owner of the item. </p>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
@@ -164,8 +166,8 @@
                             <h4>
                                 <strong>3) Chat with the Owner</strong>
                             </h4>
-                            <p>This is your opportunity to exchange information. 
-                            The chat is only available between owner and founder.</p>
+                            <p>This is your opportunity to exchange information.
+                                The chat is only available between owner and founder.</p>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
@@ -178,7 +180,7 @@
                                 <strong>4) Return the Item</strong>
                             </h4>
                             <p>Hopefully, an agreement is met. How you and the
-                            owner decide on returning the item is up to you both.</p>
+                                owner decide on returning the item is up to you both.</p>
                         </div>
                     </div>
                 </div>
@@ -206,8 +208,8 @@
                             <h4>
                                 <strong>1) Label your items</strong>
                             </h4>
-                            <p>Register your items in your profile and label your 
-                            items with the unique key id. Printed labels to come.</p>
+                            <p>Register your items in your profile and label your
+                                items with the unique key id. Printed labels to come.</p>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
@@ -219,8 +221,8 @@
                             <h4>
                                 <strong>2) Lose Item</strong>
                             </h4>
-                            <p>Optional. But if you want to use our services to 
-                            its fullest, you must lose your item, deliberately or not.</p>
+                            <p>Optional. But if you want to use our services to
+                                its fullest, you must lose your item, deliberately or not.</p>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
@@ -233,7 +235,7 @@
                                 <strong>3) Get Found Notification</strong>
                             </h4>
                             <p>Once found, you'll get notified to start a private
-                            message channel with the founder and exchange info.</p>
+                                message channel with the founder and exchange info.</p>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
@@ -245,8 +247,8 @@
                             <h4>
                                 <strong>4) Get Item Back</strong>
                             </h4>
-                            <p>Hopefully, an agreement will be met. Whether you 
-                            meet the person or have it dropped off is up to you both.</p>
+                            <p>Hopefully, an agreement will be met. Whether you
+                                meet the person or have it dropped off is up to you both.</p>
                         </div>
                     </div>
                 </div>
@@ -289,19 +291,19 @@
 
 <!-- Custom Theme JavaScript -->
 <!--<script>-->
-    <!--// Closes the sidebar menu-->
-    <!--$("#menu-close").click(function (e) {-->
-        <!--e.preventDefault();-->
-        <!--$("#sidebar-wrapper").toggleClass("active");-->
-    <!--});-->
+<!--// Closes the sidebar menu-->
+<!--$("#menu-close").click(function (e) {-->
+<!--e.preventDefault();-->
+<!--$("#sidebar-wrapper").toggleClass("active");-->
+<!--});-->
 
-    <!--// Opens the sidebar menu-->
-    <!--$("#menu-toggle").click(function (e) {-->
-        <!--e.preventDefault();-->
-        <!--$("#sidebar-wrapper").toggleClass("active");-->
-    <!--});-->
+<!--// Opens the sidebar menu-->
+<!--$("#menu-toggle").click(function (e) {-->
+<!--e.preventDefault();-->
+<!--$("#sidebar-wrapper").toggleClass("active");-->
+<!--});-->
 
-    <!--// Scrolls to the selected menu item on the page-->
+<!--// Scrolls to the selected menu item on the page-->
 
 <!--</script>-->
 
