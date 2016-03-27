@@ -60,12 +60,25 @@
             "name": document.getElementById('item_name_form').value,
             "owner_id": "{{fbid}}"
         });
+
+        $("tbody").html("");
+        readitems();
+    }
+
+    function readitems(){
+
+        ref.child("items").orderByChild("owner_id").equalTo("{{fbid}}").once("value", function(snapshot){
+            snapshot.forEach(function(itemSnap){
+//                console.log(itemSnap.val().name)
+                $("tbody").append("<tr><td>"+itemSnap.val().name+"</td></tr>");
+
+            })
+        })
     }
 </script>
 
 
-<body>
-
+<body onload="readitems()">
     <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add New Item</button>
 
     <!-- Modal -->
@@ -101,9 +114,19 @@
             </div>
         </div>
     </div>
-    
 
 
+    <div class="table-wrapper">
+        <table class="pure-table pure-table-bordered table">
+            <thead>
+            <tr>
+                <th>Items</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
     <!-- Footer -->
     <footer>
         <div class="container">
