@@ -15,6 +15,7 @@ function fblogin() {
             var m = []
             pref.set({
                 "name": authData.facebook.displayName
+
             })
             window.location.href = '/owner/' + authData.facebook.id;
         }
