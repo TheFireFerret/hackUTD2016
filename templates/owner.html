@@ -17,8 +17,8 @@
     <!-- Custom CSS -->
     <link href="../static/assets/css/stylish-portfolio.css" rel="stylesheet">
     <link rel="stylesheet" href="../static/assets/css/main.css">
-    <link rel="stylesheet" href="../static/assets/css/style.css">
-<!---->
+    <!--<link rel="stylesheet" href="../static/assets/css/style.css">-->
+
 
     <!-- jQuery -->
     <script src="../static/assets/js/jquery.js"></script>
@@ -64,25 +64,44 @@
         var npath = "items/";
         var item_id = document.getElementById('item_id_form').value;
         var pref = ref.child(npath + item_id);
-        pref.set({
-            "name": document.getElementById('item_name_form').value,
-            "owner_id": "{{fbid}}",
-            "imgurl":document.getElementById('url_form').value
+        ref.child("items/" + item_id).once("value", function (snapshot) {
+            if (snapshot.exists() && '' != item_id) {
+                alert("Item id already exists.");
+
+            }else{
+                    pref.set({
+                        "name": document.getElementById('item_name_form').value,
+                        "owner_id": "{{fbid}}",
+                        "imgurl":document.getElementById('url_form').value
+                    });
+            }
         });
+
 
         var div = document.getElementById('item_table');
         div.innerHTML = "<h2>Your Items</h2><div class=\"row\"><div class=\"col-md-6\"></div></div>";
         readitems();
     }
 
+    function itemExists(id) {
+        ref.child("items/" + id).once("value", function (snapshot) {
+            if (snapshot.exists() && id != '') {
+                alert("Item id already exists.")
+                return true;
+            }
+            return false;
+        });
+    }
+
     function readitems() {
         ref.child("items").orderByChild("owner_id").equalTo("{{fbid}}").once("value", function (snapshot) {
             snapshot.forEach(function (itemSnap) {
-//                console.log(itemSnap.val().name)
-//                $("tbody").append("<tr><td>" + itemSnap.val().name + "</td></tr>");
-
                 var div = document.getElementById('item_table');
-                div.innerHTML = div.innerHTML + "<div id=\"mainwrapper\"><div class=\"box col-md-4\"><img src=" + itemSnap.val().imgurl + " id=" + itemSnap.key() + " onclick='openItem(" + itemSnap.key() + ")' class=\"img-portfolio img-responsive\"/><span class=\"caption simple-caption\" href=\"#\">"+itemSnap.val().name +"</span></div></div>";
+                var imgurl = itemSnap.val().imgurl;
+                if (imgurl === ''){
+                    imgurl = '../static/assets/img/question-mark.jpg';
+                }
+                div.innerHTML = div.innerHTML + "<div id=\"mainwrapper\"><div class=\"box col-md-4\"><img src=" + imgurl + " id=" + itemSnap.key() + " onclick='openItem(" + itemSnap.key() + ")' class=\"img-portfolio img-responsive\"/><span class=\"caption simple-caption\" href=\"#\">"+itemSnap.val().name +"</span></div></div>";
             })
         })
     }
@@ -188,9 +207,9 @@
                             </div>
                             <div class="pure-control-group">
                                 <label for="item_id_form">ID</label>
-                                <input id="item_id_form" type="text" placeholder="ID" class="item-input">
+                                <input id="item_id_form" type="number" placeholder="ID" class="item-input" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                             </div>
-                            <div class="pure-control-group">
+                            <div class="pure-control-group hidden">
                                 <label for="url_form">Image URL</label>
                                 <input id="url_form" type="text" placeholder="URL" class="item-input">
                             </div>
