@@ -17,8 +17,6 @@
     <!-- Custom CSS -->
     <link href="../static/assets/css/stylish-portfolio.css" rel="stylesheet">
     <link rel="stylesheet" href="../static/assets/css/main.css">
-    <!--<link rel="stylesheet" href="../static/assets/css/style.css">-->
-
 
     <!-- jQuery -->
     <script src="../static/assets/js/jquery.js"></script>
@@ -34,14 +32,14 @@
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="../static/assets/css/materialize.min.css">
 
+    <!-- Compiled and minified JavaScript -->
+    <script src="../static/assets/js/materialize.min.js"></script>
+
     <!-- Animation -->
     <link href="../static/assets/css/style.css" rel="stylesheet" type="text/css" media="screen"/>
 
     <!--Filestack-->
     <script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
-
-    <!-- Compiled and minified JavaScript -->
-    <script src="../static/assets/js/materialize.min.js"></script>
 
     <!--Firebase-->
     <script src="../static/assets/js/firebase.js"></script>
@@ -99,9 +97,9 @@
                 var div = document.getElementById('item_table');
                 var imgurl = itemSnap.val().imgurl;
                 if (imgurl === ''){
-                    imgurl = 'http://www.apachetaxi.com/wp-content/uploads/2015/01/icon-lostfound-300x300.png';
+                    imgurl = '../static/assets/img/question-mark.jpg';
                 }
-                div.innerHTML = div.innerHTML + "<div id=\"mainwrapper\"><div class=\"box col-md-4\"><img src=" + imgurl + " id=" + itemSnap.key() + " onclick='openItem(" + itemSnap.key() + ")' class=\"img-portfolio img-responsive\"/><span class=\"caption simple-caption\" href=\"#\">"+itemSnap.val().name +"</span></div></div>";
+                div.innerHTML = div.innerHTML + "<div id=\"mainwrapper\"><div class=\"box col-md-4\"><img src=" + imgurl + " id=" + itemSnap.key() + " onclick='openItem(" + itemSnap.key() + ")' class=\"img-portfolio img-responsive grow\"/><span class=\"caption simple-caption\" href=\"#\">"+itemSnap.val().name +"</span></div></div>";
             })
         })
     }
