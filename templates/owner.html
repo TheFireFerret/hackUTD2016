@@ -13,6 +13,9 @@
     <!-- Bootstrap Core CSS -->
     <link href="../static/assets/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- jQuery -->
+    <script src="../static/assets/js/jquery.js"></script>
+
     <!-- Custom CSS -->
     <link href="../static/assets/css/stylish-portfolio.css" rel="stylesheet">
     <link rel="stylesheet" href="../static/assets/css/main.css">
@@ -32,8 +35,15 @@
     <!-- Animation -->
     <link href="../static/assets/css/style.css" rel="stylesheet" type="text/css" media="screen"/>
 
-    <!-- jQuery -->
-    <script src="../static/assets/js/jquery.js"></script>
+    <script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="../static/assets/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="../static/assets/js/materialize.min.js"></script>
+
+
 
     <!-- Bootstrap Core JavaScript -->
     <script src="../static/assets/js/bootstrap.min.js"></script>
@@ -72,17 +82,21 @@
         })
     }
 
+    function setURL(url){
+        document.getElementById("url_form").value = url;
+        $('#myModal').modal('show');
+    }
+
+    function hideModal(){
+        $('#myModal').modal('hide');
+    }
 </script>
 
-<script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
-
-<input type="filepicker" data-fp-apikey="A1VISLPrfTcijxscOkMXoz"
-       onchange="alert(event.fpfile.url)">
-
+<!--<button onclick="lol()">lol</button>-->
 
 <body onload="readitems()">
 <!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
+<div id="myModal" class="modal fade behind" role="dialog">
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -99,11 +113,30 @@
                                 <label for="item_name_form">Name</label>
                                 <input id="item_name_form" type="text" placeholder="Name" class="item-input">
                             </div>
-
                             <div class="pure-control-group">
                                 <label for="item_id_form">ID</label>
                                 <input id="item_id_form" type="text" placeholder="ID" class="item-input">
                             </div>
+                            <div class="pure-control-group">
+                                <label for="url_form">Image URL</label>
+                                <input id="url_form" type="text" placeholder="URL" class="item-input">
+                            </div>
+
+                            <div>
+                                <input type="filepicker" data-fp-apikey="A1VISLPrfTcijxscOkMXoz"
+                                       onchange="setURL(event.fpfile.url)" data-fp-container="window" data-fp-button-class="btn blue">
+                            </div>
+
+                            <!--<div class="file-field input-field">-->
+                                <!--<div class="btn">-->
+                                    <!--<span>File</span>-->
+                                    <!--<input type="file">-->
+                                <!--</div>-->
+                                <!--<div class="file-path-wrapper">-->
+                                    <!--<input class="file-path validate" type="text">-->
+                                <!--</div>-->
+                            <!--</div>-->
+
                         </fieldset>
                     </form>
                 </div>
@@ -112,6 +145,20 @@
                 <button type="submit" class="btn btn-dark" data-dismiss="modal" onclick="additem()">Submit</button>
             </div>
         </div>
+    </div>
+</div>
+
+<!-- Modal Trigger -->
+<a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <h4>Modal Header</h4>
+        <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
     </div>
 </div>
 

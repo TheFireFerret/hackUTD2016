@@ -13,3 +13,7 @@
 .home-button {
     margin: 10px;
 }
+
+.behind {
+    z-index: 0;
+}
