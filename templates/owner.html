@@ -99,7 +99,7 @@
                 var div = document.getElementById('item_table');
                 var imgurl = itemSnap.val().imgurl;
                 if (imgurl === ''){
-                    imgurl = '../static/assets/img/question-mark.jpg';
+                    imgurl = 'http://www.apachetaxi.com/wp-content/uploads/2015/01/icon-lostfound-300x300.png';
                 }
                 div.innerHTML = div.innerHTML + "<div id=\"mainwrapper\"><div class=\"box col-md-4\"><img src=" + imgurl + " id=" + itemSnap.key() + " onclick='openItem(" + itemSnap.key() + ")' class=\"img-portfolio img-responsive\"/><span class=\"caption simple-caption\" href=\"#\">"+itemSnap.val().name +"</span></div></div>";
             })
