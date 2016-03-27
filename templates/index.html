@@ -63,7 +63,7 @@
         var id = document.getElementById("id_entry").value;
 
         ref.child("items/" + id).once("value", function (snapshot) {
-            if (snapshot.exists()){
+            if (snapshot.exists() && id!=''){
                 alert("I EXIST");
             } else {
                 alert("id does not exist.");
