@@ -11,7 +11,7 @@
     <title>KeyPin - Find your lost items!</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../static/assets/css/bootstrap.min.css" rel="stylesheet">
+    <!--<link href="../static/assets/css/bootstrap.min.css" rel="stylesheet">-->
 
     <!-- jQuery -->
     <script src="../static/assets/js/jquery.js"></script>
@@ -19,9 +19,11 @@
     <!-- Custom CSS -->
     <link href="../static/assets/css/stylish-portfolio.css" rel="stylesheet">
     <link rel="stylesheet" href="../static/assets/css/main.css">
+    <link rel="stylesheet" href="../static/assets/css/style.css">
+
 
     <!-- PureCSS -->
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <!--<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">-->
 
     <!-- Custom Fonts -->
     <link href="../static/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -54,6 +56,11 @@
     <button type="button" class="btn btn-lg btn-dark home-button" onclick="fblogout()">KeyPin</button>
 </div>
 
+<script>
+    $(document).ready(function () {
+        $('select').material_select();
+    });
+</script>
 
 <script type="text/javascript">
     function additem() {
@@ -100,7 +107,7 @@
     <div class="modal-dialog">
 
         <!-- Modal content-->
-        <div class="modal-content">
+        <div class="">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title centered">New Item</h4>
@@ -127,15 +134,6 @@
                                        onchange="setURL(event.fpfile.url)" data-fp-container="window" data-fp-button-class="btn blue">
                             </div>
 
-                            <!--<div class="file-field input-field">-->
-                                <!--<div class="btn">-->
-                                    <!--<span>File</span>-->
-                                    <!--<input type="file">-->
-                                <!--</div>-->
-                                <!--<div class="file-path-wrapper">-->
-                                    <!--<input class="file-path validate" type="text">-->
-                                <!--</div>-->
-                            <!--</div>-->
 
                         </fieldset>
                     </form>
@@ -149,7 +147,7 @@
 </div>
 
 <!-- Modal Trigger -->
-<a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+<a class="waves-effect waves-light btn modal-trigger" data-toggle="modal" data-target="#myModal">Modal</a>
 
 <!-- Modal Structure -->
 <div id="modal1" class="modal">
@@ -198,7 +196,7 @@
 
             </div>
         </div>
-        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add New Item</button>
+        <button type="button" class="waves-effect waves-light btn" data-toggle="modal" data-target="#myModal">Add New Item</button>
     </div>
 </section>
 
