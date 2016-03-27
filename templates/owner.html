@@ -85,7 +85,7 @@
 //                $("tbody").append("<tr><td>" + itemSnap.val().name + "</td></tr>");
 
                 var div = document.getElementById('item_table');
-                div.innerHTML = div.innerHTML + "<div id=\"mainwrapper\"><div class=\"box col-md-4\"><img src=\"../static/assets/img/portfolio-1.jpg\" class=\"img-portfolio img-responsive\"/><span class=\"caption simple-caption\" href=\"#\">"+itemSnap.val().name +"</span></div></div>";
+                div.innerHTML = div.innerHTML + "<div id=\"mainwrapper\"><div class=\"box col-md-4\"><img src=" + itemSnap.val().imgurl + " class=\"img-portfolio img-responsive\"/><span class=\"caption simple-caption\" href=\"#\">"+itemSnap.val().name +"</span></div></div>";
             })
         })
     }
