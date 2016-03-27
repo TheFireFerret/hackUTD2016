@@ -1,1 +1,1 @@
-web: python hackUTD2016/app.py
+web: python app.py
