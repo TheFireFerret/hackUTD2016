@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,10 +12,7 @@
     <title>KeyPin - Find your lost items!</title>
 
     <!-- Bootstrap Core CSS -->
-    <!--<link href="../static/assets/css/bootstrap.min.css" rel="stylesheet">-->
-
-    <!-- jQuery -->
-    <script src="../static/assets/js/jquery.js"></script>
+    <link href="../static/assets/css/bootstrap.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="../static/assets/css/stylish-portfolio.css" rel="stylesheet">
@@ -22,22 +20,16 @@
     <link rel="stylesheet" href="../static/assets/css/style.css">
 
 
-    <!-- PureCSS -->
-    <!--<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">-->
+    <!-- jQuery -->
+    <script src="../static/assets/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../static/assets/js/bootstrap.min.js"></script>
 
     <!-- Custom Fonts -->
     <link href="../static/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic"
           rel="stylesheet" type="text/css">
-
-    <!--Firebase-->
-    <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
-    <script src="../static/assets/js/main.js"></script>
-
-    <!-- Animation -->
-    <link href="../static/assets/css/style.css" rel="stylesheet" type="text/css" media="screen"/>
-
-    <script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
 
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="../static/assets/css/materialize.min.css">
@@ -45,17 +37,13 @@
     <!-- Compiled and minified JavaScript -->
     <script src="../static/assets/js/materialize.min.js"></script>
 
-
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../static/assets/js/bootstrap.min.js"></script>
+    <!--Firebase-->
+    <script src="../static/assets/js/firebase.js"></script>
+    <script src="../static/assets/js/main.js"></script>
 
 </head>
 
-
-<img class="img-circle" src = "https://graph.facebook.com/{{fbid}}/picture?type=normal"/>
-
-<a href = "/home">
+<a href = "index.html">
     <button type="button" class="btn btn-lg btn-dark home-button">KeyPin</button>
 </a>
 
@@ -88,7 +76,7 @@
 //                $("tbody").append("<tr><td>" + itemSnap.val().name + "</td></tr>");
 
                 var div = document.getElementById('item_table');
-                div.innerHTML = div.innerHTML + "<div id=\"mainwrapper\"><div class=\"box col-md-4\"><img src=" + itemSnap.val().imgurl + " class=\"img-portfolio img-responsive\"/><span class=\"caption simple-caption\" href=\"#\">"+itemSnap.val().name +"</span></div></div>";
+                div.innerHTML = div.innerHTML + "<div id=\"mainwrapper\"><div class=\"box col-md-4\"><img src=" + itemSnap.val().imgurl + " id=" + itemSnap.key() + " onclick='openItem(" + itemSnap.key() + ")' class=\"img-portfolio img-responsive\"/><span class=\"caption simple-caption\" href=\"#\">"+itemSnap.val().name +"</span></div></div>";
             })
         })
     }
@@ -103,7 +91,75 @@
     }
 </script>
 
-<!--<button onclick="lol()">lol</button>-->
+<script>
+    $(document).ready(function () {
+        $('select').material_select();
+    });
+    $(document).ready(function () {
+        $('.modal-trigger').leanModal();
+    });
+
+
+    function readChat(id) {
+        console.log("I AM READING");
+        document.getElementById("modal-title-home").innerHTML = "Chat for " + id;
+
+        var $cont = $('.modal-body');
+        ref.child("items/" + id + "/messages").on("child_added", function (snapshot) {
+            console.log(snapshot.val());
+            var div = document.getElementById('chat-list');
+            div.innerHTML += "<p>" + snapshot.val() + "</p>"
+            $cont[0].scrollTop = $cont[0].scrollHeight;
+        });
+    }
+
+    function sendMsg(id) {
+//        alert(id);
+        var msgref = ref.child("items/" + id + "/messages").push();
+        msgref.set("Owner: " + document.getElementById('msg-entry').value)
+        document.getElementById('msg-entry').value = "";
+    }
+</script>
+
+<script>
+    function clearChat() {
+        var div = document.getElementById('chat-list');
+        div.innerHTML = "";
+    }
+
+    function openItem(id) {
+        document.getElementById('message-id').innerHTML = id;
+        ref.child("items/" + id).once("value", function (snapshot) {
+                ref.child("items/" + id + "/messages").off();
+                clearChat();
+                $('#modal2').modal({show: true});
+                readChat(id);
+        });
+    }
+</script>
+
+<body>
+<div class="modal" id="modal2">
+    <div class="modal-dialog" id="modal3">
+        <div class="modal-header">
+            <button type="btn" class="close" data-dismiss="modal" aria-hidden="true">Close</button>
+            <h4 class="modal-title" id="modal-title-home">Chat</h4>
+        </div>
+        <div class="modal-body" id="chat-body-user">
+            <div id="chat-list"></div>
+        </div>
+        <div class="hidden" id="message-id"></div>
+        <div class="modal-footer">
+            <div class="input-field col s6 offset-s3">
+                <input id="msg-entry" type="text" class="validate" onkeydown="if (event.keyCode == 13)
+                        sendMsg(document.getElementById('message-id').innerHTML)" autofocus>
+                <label for="msg-entry"><span class="black-text">Enter your message</span></label>
+            </div>
+            <div class="btn btn-primary" onclick="sendMsg(document.getElementById('message-id').innerHTML)">Send Message</div>
+        </div>
+    </div>
+</div>
+
 
 <body onload="readitems()">
 <!-- Modal -->
@@ -138,7 +194,6 @@
                                        onchange="setURL(event.fpfile.url)" data-fp-container="window" data-fp-button-class="btn blue">
                             </div>
 
-
                         </fieldset>
                     </form>
                 </div>
@@ -151,30 +206,6 @@
 </div>
 
 
-<!-- Modal Structure -->
-<div id="modal1" class="modal">
-    <div class="modal-content">
-        <h4>Modal Header</h4>
-        <p>A bunch of text</p>
-    </div>
-    <div class="modal-footer">
-        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-    </div>
-</div>
-
-
-<!--<div class="table-wrapper">-->
-    <!--<table class="pure-table pure-table-bordered table">-->
-        <!--<thead>-->
-        <!--<tr>-->
-            <!--<th>Items</th>-->
-        <!--</tr>-->
-        <!--</thead>-->
-        <!--<tbody>-->
-        <!--</tbody>-->
-    <!--</table>-->
-<!--</div>-->
-
 <section id="portfolio" class="portfolio">
     <div class="container centered">
         <div class="row">
@@ -185,16 +216,6 @@
                     </div>
                 </div>
 
-                <!--&lt;!&ndash; Image Caption Start Here &ndash;&gt;-->
-                <!--<div id="mainwrapper">-->
-                    <!--<div class="box col-md-4">-->
-                        <!--<img src="../static/assets/img/portfolio-1.jpg"-->
-                             <!--class="img-portfolio img-responsive"/>-->
-                <!--<span class="caption simple-caption" href="#">-->
-                    <!--Image 1-->
-                <!--</span>-->
-                    <!--</div>-->
-                <!--</div>-->
 
             </div>
         </div>
