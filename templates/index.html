@@ -56,15 +56,42 @@
     $(document).ready(function () {
         $('select').material_select();
     });
+    $(document).ready(function() {
+        $('.modal-trigger').leanModal();
+    });
+
+     function readChat() {
+        console.log("I AM READING");
+        ref.child("items/"+document.getElementById("id_entry").value+"/messages").on("child_added", function (snapshot) {
+                console.log(snapshot.val());
+                var div = document.getElementById('chat-list');
+                div.innerHTML += "<p>" + snapshot.val() + "</p>"
+            });  
+     }
+
+     function sendMsg(){
+        var msgref = ref.child("items/"+document.getElementById("id_entry").value +"/messages").push();
+        msgref.set("anon: " + document.getElementById('msg-entry').value)
+        document.getElementById('msg-entry').value = "";
+     }
+
 </script>
 
 <script>
+    function clearChat(){
+        var div = document.getElementById('chat-list');
+        div.innerHTML = "";
+    }
+
     function checkItem() {
         var id = document.getElementById("id_entry").value;
 
         ref.child("items/" + id).once("value", function (snapshot) {
             if (snapshot.exists() && id!=''){
-                alert("I EXIST");
+                ref.child("items/"+document.getElementById("id_entry").value+"/messages").off();
+                clearChat();
+                $('#modal1').modal({show:true});
+                readChat();
             } else {
                 alert("id does not exist.");
             }
@@ -72,8 +99,30 @@
 
     }
 
+    
+
 </script>
 <body>
+
+
+    <div class="modal" id="modal1">
+        <div class="modal-dialog" id="modal1">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+              <div id = "chat-list"></div>
+            </div>
+            <div class="modal-footer">
+                <div class="input-field col s6 offset-s3">
+                        <input id="msg-entry" type="text" class="validate">
+                        <label for="msg-entry"><span class="black-text">Enter your message</span></label>
+                    </div>
+              <div class="btn btn-primary" onclick="sendMsg()">Send Message</div>
+            </div>
+        </div>
+    </div>
 
 <!-- Header -->
 <header id="top" class="header">
